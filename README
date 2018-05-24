@@ -1,1 +1,70 @@
-README file
+Vagrant VM for deploying Terraform and Ansible - supports Yubikey for SSH authentication
+----------------------------------------------------------------------------------------
+
+Impetus for this project ?
+
+- broken python and dependency hell
+- share with team members experiencing issues with using their Yubikey for SSH auth
+
+This was tested with Vagrant version 2.0.0 and Virtualbox 5.1.28 on Mac OSX but should work on all platforms
+
+Vagrant file to spin up a VirtualBox virtual machine running Linux (Ubuntu Xenial 16.04 LTS)
+
+pre-installed packages -:
+
+- pip
+- python 2.7
+- JRE/JDK
+- git
+- jq
+- gnupg-agent
+- ansible
+- awscli
+- terraform
+ 
+Requirements -:
+------------
+
+- Hashicorp's Vagrant
+
+https://www.vagrantup.com/
+
+- Oracle VirtualBox   
+
+https://www.virtualbox.org/
+
+Optional -:
+
+Yubikey hardware security token for MFA SSH authentication 
+
+Edit the Vagrantfile to use the vendor and product ID for your particular model of Yubikey
+
+Instructions
+------------
+
+1. Install Vagrant and Virtualbox (see official documentation)
+2. clone this repo, cd into the directory
+3. If you plan on using AWS CLI run start.sh, if not skip to step 4
+
+source start.sh
+
+4. vagrant up
+5. vagrant ssh
+6. If you need to use Yubikey for SSH authentication run the following command when logged in
+
+eval $(gpg-agent --homedir /home/vagrant/.gnupg --use-standard-socket --daemon)
+
+
+Troubleshooting -:
+---------------
+
+If you find your Yubikey is not working for SSH authentication
+
+- check that your VM is seeing the USB device, unplug and plug the Yubikey back in
+- run lsusb to see if the VM is detecting and lists the Yubikey device
+- ensure that the Vagrantfile is using the correct vendor and product id for your yubikey
+- kill any gpg-agent processes
+
+kill -15 $(ps auxwww|grep gpg-agent | grep -v grep | awk {'print $2'})
+
+- restart the gpg-agent using the eval command above
