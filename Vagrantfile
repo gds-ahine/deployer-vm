@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "bootstrap.sh"
   #config.vm.provision "file", source: "~/.ssh/config", destination: "~/.ssh/config"
   # uncomment the following line if you need to sync a local directory to the VM
-  config.vm.synced_folder "<source directory on host to sync>/Users/aaronhine/.ssh", "<destination directory to sync to>"
+  config.vm.synced_folder "<source directory on host to sync>", "<destination directory to sync to>"
   #config.vm.provision "shell", inline: $set_aws_config, run: "always"
   config.vm.provision "shell", inline: $set_aws_creds, run: "always"
 
