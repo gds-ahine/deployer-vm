@@ -21,7 +21,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
 apt-add-repository "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main"
 apt-get update
 apt-get install ansible -y
-pip install awscli --user
+sudo -u vagrant pip install awscli --user
 ln -s ~vagrant/.local/bin/aws /usr/bin/aws
 
 # symlink gpg to gpg2
@@ -63,6 +63,7 @@ if [ ! $sha256output = "OK" ]; then
         exit
 else
         echo "Terraform binary integrity is GOOD"
+	unzip terraform_$terraform_version_linux_amd64.zip
         mv terraform /usr/local/bin
 fi
 
