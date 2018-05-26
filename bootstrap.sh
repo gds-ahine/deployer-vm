@@ -22,6 +22,7 @@ apt-add-repository "deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial m
 apt-get update
 apt-get install ansible -y
 sudo -u vagrant pip install awscli --user
+sudo -u vagrant pip install boto --user
 ln -s ~vagrant/.local/bin/aws /usr/bin/aws
 
 # symlink gpg to gpg2
